@@ -5,9 +5,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="css/main.css">
+    <meta name="description" content="Free online to-do list tracker. Manage to-do items.">  
     <title>Free Online ToDo List</title>
 </head>
 <body>
     <h1>ToDo List</h1>
+    <form>
+        <input type="text" placeholder="Title" name="title" id="title" aria-placeholder="Enter the title of the task you wish to complete.">
+        <br><br>
+        <input type="text"  placeholder="Deadline" name="deadline" id="deadline" aria-placeholder="Enter a date when the task is due.">
+        <br><br>
+        <input type="checkbox" id="is-complete"> IsComplete?
+        <br><br>
+        <input type="button" value="Add ToDo">
+    </form>
+    <div id="todo">
+        
+    </div>
+    <div id="completed">
+
+    </div>
+    <script src="scripts/main.js"></script>
 </body>
 </html>
