@@ -1,0 +1,9 @@
+body {
+    background-color: rgb(46, 46, 46);
+    color: rgb(211, 211, 211);
+}
+
+input {
+    border-radius: .3em;
+    background-color: rgb(204, 204, 204);
+}
