@@ -28,6 +28,8 @@ div#todo {
 div#completed {
     border: 1px solid rgb(86, 206, 86);
     background-color: rgb(36, 48, 27);
+    text-decoration: line-through;
+    opacity: .8;
     float: right;
 }
 
