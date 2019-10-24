@@ -3,7 +3,38 @@ body {
     color: rgb(211, 211, 211);
 }
 
+form, h1 {
+    text-align: center;
+}
+
 input {
-    border-radius: .3em;
     background-color: rgb(204, 204, 204);
+    text-align: center;
+}
+
+div#todo, div#completed {
+    width: 48%;
+    box-sizing: border-box;
+    padding: .4em;
+    margin: 1%;
+}
+
+div#todo {
+    border: 1px solid rgb(177, 58, 58);
+    background-color: rgb(58, 21, 21);
+    float: left;
+}
+
+div#completed {
+    border: 1px solid rgb(86, 206, 86);
+    background-color: rgb(36, 48, 27);
+    float: right;
+}
+
+@media only screen and (max-width: 600px) {
+    div#todo, div#completed {
+        width: 100%;
+        float: none;
+        margin-top: 1em;
+    }
 }
