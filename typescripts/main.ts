@@ -15,7 +15,21 @@ class ToDoItem {
     }
 }
 
+/*Test code start here*/
 let myItem = new ToDoItem("Finish homework");
+
+myItem.isCompleted = false;
+myItem.deadline = new Date(2019, 9, 29); // month starts at 0, so 9 is october instead of 10.
+
+
+//Stringify converts any object, into a json string format.
+let strData = JSON.stringify(myItem);
+console.log(strData);
+
+//setting a cookie called todoitems that expires in a week
+Cookies.set("todoitems", strData, {expires:7});
+
+/*Test code end here*/
 
 window.onload = function() {
     let addButton = <HTMLElement>document.querySelector("form > input[type=button]");
