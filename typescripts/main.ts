@@ -15,6 +15,7 @@ class ToDoItem {
     }
 }
 
+{
 /*Test code start here*/
 let myItem = new ToDoItem("Finish homework");
 
@@ -26,10 +27,25 @@ myItem.deadline = new Date(2019, 9, 29); // month starts at 0, so 9 is october i
 let strData = JSON.stringify(myItem);
 console.log(strData);
 
+//                 Cookie Storage                   //
 //setting a cookie called todoitems that expires in a week
-Cookies.set("todoitems", strData, {expires:7});
+const cookieKey = "todoitems";
+Cookies.set(cookieKey, strData, {expires:7});
+let cookieItem:ToDoItem = JSON.parse(Cookies.get(cookieKey));
+console.log("Read cookie data: " + cookieItem.title + " " + cookieItem.deadline);
+
+//                 HTML Storage                   //
+const storageKey = "Task";
+if (typeof(Storage) != "undefined") {
+    localStorage.setItem(storageKey, strData);
+    let storageStr = localStorage.getItem(storageKey);
+    let item:ToDoItem = JSON.parse(storageStr);
+    console.log(localStorage.Task);
+
+} 
 
 /*Test code end here*/
+}
 
 window.onload = function() {
     let addButton = <HTMLElement>document.querySelector("form > input[type=button]");
@@ -40,6 +56,15 @@ function main() {
     let item:ToDoItem = getItem();
 
     displayToDoItem(item);
+
+    // Get exsisting todos, add new one, re-save list
+    let allItems = readToDoItems();
+    allItems.push(item); // Add new item to exsisting list
+    saveToDoItems(allItems);
+
+    for (let currIndex = 0; currIndex < allItems.length; currIndex++) {
+        alert(allItems[currIndex].title);
+    }
 }
 
 /**
@@ -84,4 +109,15 @@ function getItem():ToDoItem {
 
 }
 
-//
+const theStorageKey = "MyItems";
+function saveToDoItems(items:Array<ToDoItem>) {
+    localStorage.setItem(theStorageKey, JSON.stringify(items));
+}
+
+function readToDoItems():Array<ToDoItem> {
+    let stringData = localStorage.getItem(theStorageKey);
+    if (stringData == null) {
+        return new Array<ToDoItem>();
+    }
+    return JSON.parse(stringData);
+}

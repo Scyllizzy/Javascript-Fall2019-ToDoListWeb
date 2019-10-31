@@ -10,16 +10,30 @@ var ToDoItem = /** @class */ (function () {
     }
     return ToDoItem;
 }());
-/*Test code start here*/
-var myItem = new ToDoItem("Finish homework");
-myItem.isCompleted = false;
-myItem.deadline = new Date(2019, 9, 29); // month starts at 0, so 9 is october instead of 10.
-//Stringify converts any object, into a json string format.
-var strData = JSON.stringify(myItem);
-console.log(strData);
-//setting a cookie called todoitems that expires in a week
-Cookies.set("todoitems", strData, { expires: 7 });
-/*Test code end here*/
+{
+    /*Test code start here*/
+    var myItem = new ToDoItem("Finish homework");
+    myItem.isCompleted = false;
+    myItem.deadline = new Date(2019, 9, 29); // month starts at 0, so 9 is october instead of 10.
+    //Stringify converts any object, into a json string format.
+    var strData = JSON.stringify(myItem);
+    console.log(strData);
+    //                 Cookie Storage                   //
+    //setting a cookie called todoitems that expires in a week
+    var cookieKey = "todoitems";
+    Cookies.set(cookieKey, strData, { expires: 7 });
+    var cookieItem = JSON.parse(Cookies.get(cookieKey));
+    console.log("Read cookie data: " + cookieItem.title + " " + cookieItem.deadline);
+    //                 HTML Storage                   //
+    var storageKey = "Task";
+    if (typeof (Storage) != "undefined") {
+        localStorage.setItem(storageKey, strData);
+        var storageStr = localStorage.getItem(storageKey);
+        var item = JSON.parse(storageStr);
+        console.log(localStorage.Task);
+    }
+    /*Test code end here*/
+}
 window.onload = function () {
     var addButton = document.querySelector("form > input[type=button]");
     addButton.onclick = main;
@@ -27,6 +41,13 @@ window.onload = function () {
 function main() {
     var item = getItem();
     displayToDoItem(item);
+    // Get exsisting todos, add new one, re-save list
+    var allItems = readToDoItems();
+    allItems.push(item); // Add new item to exsisting list
+    saveToDoItems(allItems);
+    for (var currIndex = 0; currIndex < allItems.length; currIndex++) {
+        alert(allItems[currIndex].title);
+    }
 }
 /**
  * Displays to-do item on the page.
@@ -58,4 +79,14 @@ function getItem() {
     item.isCompleted = false;
     return item;
 }
-//
+var theStorageKey = "MyItems";
+function saveToDoItems(items) {
+    localStorage.setItem(theStorageKey, JSON.stringify(items));
+}
+function readToDoItems() {
+    var stringData = localStorage.getItem(theStorageKey);
+    if (stringData == null) {
+        return new Array();
+    }
+    return JSON.parse(stringData);
+}
